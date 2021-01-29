@@ -1,0 +1,59 @@
+@import '../shared/mixins.scss';
+.checked{
+    text-decoration: line-through;
+}
+.todolist-wrapper{
+    width: 100%;
+    height: 100vh;
+    @include Flex(center,center);
+    .todolist-content{
+        .todolist-input{
+            @include Flex(space-between, center);
+            .todo-input{
+                position: relative;
+                margin-right: 10px;
+               input{
+                @include Input(300px,30px);
+               }
+               button{
+                position: absolute;
+                right: 0;
+                @include Button(30px,100%);
+               }  
+            }
+            .todo-select{
+                select{
+                    @include Select(100px, 36px);
+                }
+            }
+        }
+        .todolist-list{
+            .todolist-list-item{
+                height: 40px;
+                margin: 10px 0px;
+                background-color: green;
+                @include Flex(space-between,center);
+                .list-buttons{
+                    height: 100%;
+                    button{
+                        @include Button(40px, 100%);
+                    }
+                }
+                .list-item-text{
+                    height: 100%;
+                    p{
+                        &:nth-child(1){
+                            font-size: 20px;
+                            color: #fff;
+                            background-color: red;
+                            height: 100%;
+                            width: 30px;
+                            @include Flex(center,center);
+                        }
+                    }
+                    @include Flex(center, center);
+                }
+            }
+        }
+    }
+}

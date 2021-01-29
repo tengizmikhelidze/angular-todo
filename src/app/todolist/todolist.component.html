@@ -1,0 +1,29 @@
+<div class="todolist-wrapper">
+    <div class="todolist-content">
+        <div class="todolist-input">
+            <div class="todo-input">
+                <input type="text" [(ngModel)]="todo">
+                <button (click)="addTodo()">+</button>
+            </div>
+            <div class="todo-select">
+                <select (change)="selectChange()" [(ngModel)]="selectItem">
+                    <option>All</option>
+                    <option>Checked</option>
+                    <option>Unchecked</option>
+                </select>
+            </div>
+        </div>
+        <div class="todolist-list">
+            <div class="todolist-list-item" *ngFor="let todo of todoDefault; let i=index;">
+                <div class="list-item-text">
+                    <p>{{i+1}}</p>
+                    <p [className]="todo['checked'] ? 'checked':'unchecked'">&nbsp;{{todo['name']}}</p>
+                </div>
+                <div class="list-buttons">
+                    <button (click)="checkTodo(todo['id'])">+</button>
+                    <button (click)="removeTodo(todo['id'])">-</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

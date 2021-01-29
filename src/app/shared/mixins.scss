@@ -1,0 +1,26 @@
+@mixin Flex($justify, $align, $direction : row) {
+    display: flex;
+    justify-content: $justify;
+    align-items: $align;
+    flex-direction: $direction;
+};
+
+@mixin Input($width, $height) {
+    width: $width;
+    height: $height;
+    outline: none;
+};
+
+@mixin Button($width, $height) {
+    width: $width;
+    height: $height;
+    outline: none;
+    cursor: pointer;
+}
+
+@mixin Select($width, $height) {
+    width: $width;
+    height: $height;
+    outline: none;
+    cursor: pointer;
+}
