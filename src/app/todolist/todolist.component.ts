@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SessionStorageService } from '../shared/services/session-storage.service';
 @Component({
   selector: 'app-todolist',
   templateUrl: './todolist.component.html',
@@ -11,10 +12,16 @@ export class TodolistComponent implements OnInit {
   todoChecked : {id: number, name:string, checked:boolean}[] = [];
   todoDefault  : {id: number, name:string, checked:boolean}[] = []
   selectItem : string = 'All';
-  constructor() { }
+  constructor(private session: SessionStorageService) { }
 
   ngOnInit(): void {
-
+    window.onbeforeunload =(event)=>{
+      this.session.setStorage(this.todoList);
+    }
+    if(this.session.getStorage() && this.session.getStorage().length !==0 ){
+      this.todoList = this.session.getStorage();
+      this.checkDefault();
+    }
   }
 
   checkDefault(){
