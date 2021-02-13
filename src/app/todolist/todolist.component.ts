@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { SessionStorageService } from '../shared/services/session-storage.service';
+import { MessageService } from 'primeng/api';
+import { SessionStorageService } from '../shared/services/session/session-storage.service';
 @Component({
   selector: 'app-todolist',
   templateUrl: './todolist.component.html',
-  styleUrls: ['./todolist.component.scss']
+  styleUrls: ['./todolist.component.scss'],
+  providers: [MessageService]
 })
 export class TodolistComponent implements OnInit {
   todo : string ='';
@@ -12,7 +14,7 @@ export class TodolistComponent implements OnInit {
   todoChecked : {id: number, name:string, checked:boolean}[] = [];
   todoDefault  : {id: number, name:string, checked:boolean}[] = []
   selectItem : string = 'All';
-  constructor(private session: SessionStorageService) { }
+  constructor(private session: SessionStorageService, private messageService: MessageService) { }
 
   ngOnInit(): void {
     window.onbeforeunload =(event)=>{
@@ -36,8 +38,11 @@ export class TodolistComponent implements OnInit {
 
   addTodo(){
     if(this.todo === ''){
-      alert('შემოიტანეთ არაცარიელი ელეენტი')
+      this.messageService.add({severity:'error', summary:'Please Enter Your Todo', detail:'Error'});
+    }else if(this.todoList.filter(item=>this.todo===item.name).length !== 0){
+      this.messageService.add({severity:'error', summary:'Todo Already Exists', detail:'Error'});
     } else {
+      this.messageService.add({severity:'success', summary:'Todo Added', detail:'Updated Todolist'});
       this.todoList.push({id : this.todoID,name : this.todo, checked : false});
       this.checkDefault();
       this.todoID++;
